@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: [
-          '/',          // homepage
+          '/',          // home page
           '/demo',      // public interactive demo
           '/login',     // auth pages (indexable but low priority)
           '/register',  // registration funnel
