@@ -25,7 +25,7 @@ export const queueController = {
         } catch (err: any) {
             if (err.code === '23505' || err.message === 'SESSION_ALREADY_EXISTS') {
                 return res.status(409).json({
-                    message: 'A session already exists for today. Close it first before opening a new one.',
+                    message: 'This doctor already has an active session today. Close it first before opening a new one.',
                 });
             }
             console.error('OPEN SESSION ERROR:', err);
@@ -309,6 +309,11 @@ export const queueController = {
         } catch (err: any) {
             if (err.message === 'SESSION_NOT_FOUND') {
                 return res.status(404).json({ message: 'Session not found or not closed' });
+            }
+            if (err.code === '23505') {
+                return res.status(409).json({
+                    message: 'This doctor already has another active session today. Close it before reopening this one.',
+                });
             }
             console.error('[queue]', err); return res.status(500).json({ message: 'Internal server error' });
         }
