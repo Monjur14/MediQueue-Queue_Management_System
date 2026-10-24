@@ -6,6 +6,12 @@ dotenv.config();
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 
+  // Run every connection in the clinic's local timezone so CURRENT_DATE /
+  // NOW()::date mean "today in Bangladesh", matching the YYYY-MM-DD the
+  // frontend sends as session_date. Without this the DB uses UTC and, between
+  // 00:00 and 06:00 Dhaka time, "today's" sessions are looked up on the wrong date.
+  options: `-c TimeZone=${process.env.DB_TIMEZONE ?? 'Asia/Dhaka'}`,
+
   // ── Connection pool tuning ─────────────────────────────────────────────────
   // max: how many simultaneous DB connections this Node process holds open.
   // Each request that calls pool.connect() occupies one slot for its lifetime.
