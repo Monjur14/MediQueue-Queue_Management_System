@@ -10,13 +10,12 @@
 import pg from 'pg';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-//SUPER_ADMIN_EMAIL=14monjurhossen@gmail.com SUPER_ADMIN_PASSWORD='REDACTED' npm run seed-super-admin
 
 dotenv.config();
 
-const email = '14monjurhossen@gmail.com';
-const password = 'REDACTED';
-const name = 'Platform Owner';
+const email = process.env.SUPER_ADMIN_EMAIL?.trim().toLowerCase();
+const password = process.env.SUPER_ADMIN_PASSWORD;
+const name = process.env.SUPER_ADMIN_NAME?.trim() || 'Platform owner';
 
 if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
   console.error('❌ Set SUPER_ADMIN_EMAIL to a valid email address.');
