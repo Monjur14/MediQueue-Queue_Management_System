@@ -23,7 +23,7 @@ if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
 }
 if (!password || password.length < 10) {
   console.error('❌ Set SUPER_ADMIN_PASSWORD (at least 10 characters).');
-  process.exit(1);
+  process.exit(1); 
 }
 
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
